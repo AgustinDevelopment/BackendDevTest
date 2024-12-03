@@ -1,0 +1,32 @@
+{
+  "name": "backenddevtest",
+  "version": "1.0.0",
+  "description": "Prueba Tecnica",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "rimraf ./dist && tsc",
+    "start": "node dist/main.js"
+  },
+  "author": "agusalanis.dev@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.0.1",
+    "@types/colors": "^1.2.4",
+    "body-parser": "^1.20.3",
+    "dotenv": "^16.4.6",
+    "express": "^4.21.1",
+    "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4",
+    "prisma": "^6.0.1",
+    "sequelize": "^6.37.5",
+    "sequelize-typescript": "^2.1.6"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.1",
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  }
+}

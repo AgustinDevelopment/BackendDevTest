@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+  url      = env("DATABASE_URL")
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Campaign {
+  id            Int       @id @default(autoincrement())
+  title         String
+  description   String
+  goal          Int
+  responsesCount Int      @default(0)
+  status        String    @default("Active")
+  
+  insights      Insight[] // Relación con insights
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+
+model Insight {
+  id          Int      @id @default(autoincrement())
+  question    String   // Pregunta relacionada al insight
+  category    String   // Categoría del insight (e.g., "Atención", "Puntualidad")
+  percentage  Float    // Porcentaje asociado a la categoría
+  comments    String[] // Comentarios relacionados (array de textos)
+  campaignId  Int      // Relación con Campaign
+  campaign    Campaign @relation(fields: [campaignId], references: [id])
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
