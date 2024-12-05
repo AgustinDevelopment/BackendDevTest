@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { CampaignController } from '../controllers/campaign.controller';
+import { validateCampaign } from '../middleware/CampaignValidation.middleware';
 
 export class CampaignRoutes {
   constructor(private readonly campaignController: CampaignController) {}
@@ -7,8 +8,17 @@ export class CampaignRoutes {
   get router() {
     const router = Router();
 
-    router.post('/', this.campaignController.createCampaign);
-    router.get('/', this.campaignController.getTodos);
+    router.get('/', this.campaignController.getAllCampaigns)
+    // router.get(':id', this.campaignController.getCampaignById)
+    router.post('/', 
+      validateCampaign,  
+      this.campaignController.createCampaign
+    )
+    router.put('/:id', 
+      validateCampaign,
+      this.campaignController.updateCampaign
+    )
+    router.delete('/:id', this.campaignController.deleteCampaign)
 
     return router;
   }

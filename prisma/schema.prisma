@@ -25,11 +25,11 @@ model Campaign {
 
 model Insight {
   id          Int      @id @default(autoincrement())
-  question    String   // Pregunta relacionada al insight
-  category    String   // Categoría del insight (e.g., "Atención", "Puntualidad")
-  percentage  Float    // Porcentaje asociado a la categoría
-  comments    String[] // Comentarios relacionados (array de textos)
-  campaignId  Int      // Relación con Campaign
+  question    String   
+  category    String   
+  percentage  Float    
+  comments    String[] 
+  campaignId  Int      
   campaign    Campaign @relation(fields: [campaignId], references: [id])
 
   createdAt   DateTime @default(now())
