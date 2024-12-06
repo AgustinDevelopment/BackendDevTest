@@ -68,15 +68,22 @@ export class CampaignController {
     }
   }
   
-  async deleteCampaign(req: Request, res: Response) {
-    const { id } = req.params;
+  async deleteCampaign(req: Request, res: Response): Promise<void> {
     try {
-      await prisma.campaign.delete({
-        where: { id: parseInt(id) }
+      const { id } = req.params;
+      const deletedCampaign = await prisma.campaign.delete({
+        where: { id: Number(id) },
       });
-      res.status(204).send();
+      if (deletedCampaign) {
+        res.status(200).json(deletedCampaign);
+        return
+      } else {
+        res.status(404).json({ message: 'Campaign not found' });
+        return
+      }
     } catch (error) {
-      res.status(500).json({ error: 'Error deleting campaign', details: (error as any).message });
+      res.status(500).json({ error: 'An error occurred while deleting the campaign' });
+      return
     }
   }
 

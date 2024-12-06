@@ -12,20 +12,24 @@ export class InsightController {
         }
     }
 
-    async getInsightById(req: Request, res: Response): Promise <void> {
-        const { id } = req.params
+    async getInsightById(req: Request, res: Response): Promise<void> {
         try {
-            const insight = await prisma.insight.findUnique({
-                where: { id: parseInt(id) }
-            })
-            if(!insight) {
-                res.status(404).json({ error: 'Insight not found' });
-                return;
-            }
+          const { id } = req.params;
+          const insight = await prisma.insight.findUnique({
+            where: { id: Number(id) },
+          });
+          if (insight) {
+            res.status(200).json(insight);
+            return 
+          } else {
+            res.status(404).json({ message: 'Insight not found' });
+            return
+          }
         } catch (error) {
-            res.status(500).json({ error: 'Error getting insight by id', details: (error as any).message });
+          res.status(500).json({ error: 'An error occurred while retrieving the insight' });
+          return 
         }
-    }
+      }
 
     async createInsight(req: Request, res: Response): Promise<void> {
         try {
@@ -107,14 +111,23 @@ export class InsightController {
           }
     }
     
-    async deleteInsight(req: Request, res: Response) {
-        const { id } = req.params
+    async deleteInsight(req: Request, res: Response): Promise<void> {
         try {
-            await prisma.insight.delete({where: {id:parseInt(id)}})
-            res.status(204).send()
+          const { id } = req.params;
+          const deletedInsight = await prisma.insight.delete({
+            where: { id: Number(id) },
+          });
+          if (deletedInsight) {
+            res.status(200).json(deletedInsight);
+            return 
+          } else {
+            res.status(404).json({ message: 'Insight not found' });
+            return 
+          }
         } catch (error) {
-            res.status(500).json({ error: 'Error deleting insight', details: (error as any).message });
+          res.status(500).json({ error: 'An error occurred while deleting the insight' });
+          return 
         }
-    }
+      }
     
 }
