@@ -2,7 +2,7 @@ import express, { Router } from 'express';
 import colors from 'colors';
 
 export class Server {
-  private readonly app = express();
+  public readonly app = express();
 
   constructor(
     private readonly port: number,
@@ -14,6 +14,7 @@ export class Server {
   private config(): void {
     this.app.use(express.json()); 
   }
+  
 
   start() {
     this.app.use(this.router);

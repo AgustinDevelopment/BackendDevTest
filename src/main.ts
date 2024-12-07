@@ -5,6 +5,7 @@ import { CampaignController } from './controllers/campaign.controller';
 import { CampaignRoutes } from './routes/campaign.routes';
 import { InsightController } from './controllers/insight.controller';
 import { InsightRoutes } from './routes/insight.routes';
+import { setupSwagger } from './config/swagger';
 
 
 (() => {
@@ -17,6 +18,8 @@ import { InsightRoutes } from './routes/insight.routes';
   const apiRouter = new ApiRoutes(campaignRouter, insightRoutes);
 
   const server = new Server(env.PORT, apiRouter.router);
+
+  setupSwagger(server.app);
 
   server.start();
 })();

@@ -9,7 +9,7 @@ export class CampaignRoutes {
     const router = Router();
 
     router.get('/', this.campaignController.getAllCampaigns)
-    // router.get(':id', this.campaignController.getCampaignById)
+    router.get(':id', this.campaignController.getCampaignById)
     router.post('/', 
       validateCampaign,  
       this.campaignController.createCampaign
